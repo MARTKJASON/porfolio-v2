@@ -368,3 +368,6 @@
 @media (max-width: 639px) {
   .sgrid__stage-chip, .sgrid__service-index, .sgrid__chip { font-size: 12px; }
 }
+
+/* Keep the "01 / 05" counter on one line beside the logo marks. */
+.sgrid__service-index { white-space: nowrap; }

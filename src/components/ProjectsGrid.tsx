@@ -1,18 +1,17 @@
 import { Fragment, useCallback, useEffect, useRef, useState, type ComponentType, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { ArrowUpRight, X, Ticket, Robot, FlowArrow, CursorClick } from '@/components/slab'
+import { ArrowUpRight, X, Buildings, ContactlessPayment, Diamond, CursorClick, HandPointing, TestTube, Repeat, UsersThree, RocketLaunch } from '@/components/slab'
 import { FlowIcon, PlanIcon, GlobeIcon, SparkIcon, DeviceIcon } from './ProjectIcons'
-import { AutomationsPanel, PlanPanel, TicketingPanel, FrameworkPanel, WorkflowPanel, BarrelPanel, AIWindow, AppsWindow } from './ProjectPanels'
-import { gymFunnel, bookingFunnel, websiteFunnel, type Funnel } from '@/data/funnels'
-import { mobileApps } from '@/data/projects'
-import { aiStack, type StackNode } from '@/data/ai-stack'
+import { FMSPanel, ExpensePanel, SpaceePanel, NFCPanel, DanglingPanel, BarrelPanel, TechWindow, QAWindow } from './ProjectPanels'
+import { caseStudies, caseStudy, type Funnel } from '@/data/funnels'
+import { techStack, leaves } from '@/data/ai-stack'
 import { useIsPhone } from '@/hooks/useMediaQuery'
 
 /**
- * Projects, as one viewport in Home's bento language: a glass panel of six
+ * Projects, as one viewport in Home's bento language: a glass panel of
  * cards, each previewing its own body of work with a live inner track, each
- * opening the work itself in a near-fullscreen dialog (see ProjectPanels for
- * the first three; the rest are the sections the long page used to stack).
+ * opening the work itself in a near-fullscreen dialog (the case-study pages
+ * in public/samples/, the 3D carousel of all of them, and the skill grids).
  *
  * The dialog is a portal at z 8000, under the funnel preview (9000) so the
  * barrel's own "open this page" dialog can still stack on top of it.
@@ -26,7 +25,7 @@ type Project = {
   eyebrow: string
   Section: ComponentType
   span?: 2
-  /** Open Builds style: a small orange kicker above the title. */
+  /** Small kicker above the title on the build cards. */
   kicker?: string
   /** Real marks of what the work was built in; replaces the icon tile. */
   logos?: string[]
@@ -35,57 +34,51 @@ type Project = {
   cat: Cat
 }
 
-type Cat = 'work' | 'sites' | 'apps' | 'ai'
+type Cat = 'work' | 'ventures' | 'skills'
 const FILTERS: { key: Cat | 'all'; label: string }[] = [
   { key: 'all', label: 'All' },
   { key: 'work', label: 'Work' },
-  { key: 'sites', label: 'Sites' },
-  { key: 'apps', label: 'Apps' },
-  { key: 'ai', label: 'AI' },
+  { key: 'ventures', label: 'Ventures' },
+  { key: 'skills', label: 'Skills' },
 ]
 
-/** Example tool marks, from public/icons. Swap for what you build with. */
-const GHL = '/icons/gohighlevel.png'
-const CLAUDE_CODE = '/icons/claude-code-logo.png'
-const CODEX = '/icons/ai/codex.svg'
-const HERMES = '/icons/ai/hermes.svg'
-const PLAY = '/icons/ai/googleplay.svg'
-const CHROME = '/icons/ai/googlechrome.svg'
-const EXPO = '/icons/ai/expo.svg'
+/** Tool marks, from public/icons. */
+const NEST = '/icons/ai/nestjs.svg'
+const REACT = '/icons/ai/react.svg'
+const NEXT = '/icons/ai/nextdotjs.svg'
 
-const WF_SHOTS = ['project-1.jpg', 'project-2.jpg', 'project-3.jpg', 'project-4.jpg'].map(
-  (f) => `/placeholders/${f}`,
-)
-
-const FUNNEL_SHOTS = [gymFunnel[0], bookingFunnel[0], websiteFunnel[0]].filter(Boolean)
 const thumbSrc = (f: Funnel) => `/${f.dir ?? 'funnels'}/thumbs/${f.file.replace('.html', '.jpeg')}`
 
-const APP_SHOTS = [
-  ...mobileApps.map((a) => a.imageSrc).filter((s): s is string => !!s),
-  '/placeholders/extension-1.jpg',
-  '/placeholders/extension-2.jpg',
-]
+/** FMS leads the reel; the rest of the case studies follow it. */
+const REEL_SHOTS = [caseStudy('fms.html'), ...caseStudies.filter((c) => c.file !== 'fms.html')].map(thumbSrc)
+const FAN_SHOTS = [caseStudy('spacee.html'), caseStudy('nfc.html'), caseStudy('dangling-co.html')]
 
-const BUILD_DESC = 'PLACEHOLDER - tell me what to put here: two lines on what this project is and the result it got.'
-
-/** The three featured builds: each its own card in the stack, each its own
+/** The three smaller builds: each its own card in the stack, each its own
  *  pop-up. */
 const BUILDS: Project[] = [
-  { id: 'ticketing', cat: 'work', index: '03', kicker: 'Placeholder category', title: 'Featured Project One', desc: BUILD_DESC, Icon: () => <Ticket size={20} weight="duotone" />, logos: [GHL], eyebrow: 'Featured build', Section: TicketingPanel, Preview: () => null },
-  { id: 'framework', cat: 'ai', index: '04', kicker: 'Placeholder category', title: 'Featured Project Two', desc: BUILD_DESC, Icon: () => <Robot size={20} weight="duotone" />, logos: [CLAUDE_CODE], eyebrow: 'Featured build', Section: FrameworkPanel, Preview: () => null },
-  { id: 'workflow', cat: 'ai', index: '05', kicker: 'Placeholder category', title: 'Featured Project Three', desc: BUILD_DESC, Icon: () => <FlowArrow size={20} weight="duotone" />, logos: [CLAUDE_CODE, CODEX, HERMES], eyebrow: 'Featured build', Section: WorkflowPanel, Preview: () => null },
+  { id: 'spacee', cat: 'work', index: '03', kicker: 'Backend · NestJS', title: 'Spacee', desc: 'A platform for renting rooms and office spaces in Japan. I built the API and the database-driven features.', Icon: () => <Buildings size={20} weight="duotone" />, logos: [NEST], eyebrow: 'Work project', Section: SpaceePanel, Preview: () => null },
+  { id: 'nfc', cat: 'ventures', index: '04', kicker: 'Personal venture', title: 'NFC Touchpoints', desc: 'NFC cards for businesses, with a URL for each touchpoint that leads to reviews, social pages and leads.', Icon: () => <ContactlessPayment size={20} weight="duotone" />, eyebrow: 'Personal venture', Section: NFCPanel, Preview: () => null },
+  { id: 'dangling', cat: 'ventures', index: '05', kicker: 'Personal venture', title: 'Dangling Co', desc: 'A handmade accessories business. I run the website and the operations behind it.', Icon: () => <Diamond size={20} weight="duotone" />, eyebrow: 'Personal venture', Section: DanglingPanel, Preview: () => null },
 ]
 
-const leaves = (n: StackNode): StackNode[] => (n.children?.length ? n.children.flatMap(leaves) : [n])
-const AI_LEAVES = leaves(aiStack)
+const TECH_LEAVES = leaves(techStack)
+
+/** The QA work, five lines on the wide card. */
+const QA_LINES = [
+  { Icon: HandPointing, title: 'Manual & exploratory', note: 'Features tested the way users use them' },
+  { Icon: TestTube, title: 'Automation testing', note: 'Checks that run on every change' },
+  { Icon: Repeat, title: 'Regression testing', note: 'New work does not break old work' },
+  { Icon: UsersThree, title: 'UAT facilitation', note: 'Real users sign off before release' },
+  { Icon: RocketLaunch, title: 'Production readiness', note: 'Staging validation and go or no-go' },
+] as const
 
 /* ---------- Previews ---------- */
 
-function WorkflowsPreview() {
+function ReelPreview() {
   return (
     <div className="bento__media bento__reel" aria-hidden="true">
       <div className="bento__reel-track">
-        {[...WF_SHOTS, ...WF_SHOTS].map((src, i) => (
+        {[...REEL_SHOTS, ...REEL_SHOTS].map((src, i) => (
           <span key={i} className="bento__shot">
             <img src={src} alt="" loading="lazy" decoding="async" />
           </span>
@@ -95,17 +88,17 @@ function WorkflowsPreview() {
   )
 }
 
-/** A paper mock of the plan document, the way SamplePlan previews it. */
-function PlanPreview() {
+/** A paper mock of the UAT document. */
+function UATPreview() {
   return (
     <div className="bento__media bento__doc" aria-hidden="true">
-      <span className="bento__doc-eyebrow">Placeholder document</span>
-      <span className="bento__doc-title">Your document title here.</span>
+      <span className="bento__doc-eyebrow">UAT plan</span>
+      <span className="bento__doc-title">Expense Management System</span>
       <span className="bento__doc-flow">
-        <i>Step</i>
-        <i>Step</i>
-        <i>Step?</i>
-        <i className="is-on">Result</i>
+        <i>Dev</i>
+        <i>QA</i>
+        <i>UAT</i>
+        <i className="is-on">Prod</i>
       </span>
       <span className="bento__doc-line" />
       <span className="bento__doc-line bento__doc-line--short" />
@@ -113,11 +106,10 @@ function PlanPreview() {
   )
 }
 
-/** The three builds as Open Builds rows: plate, eyebrow, title, arrow. */
-function FunnelsPreview() {
+function FanPreview() {
   return (
     <div className="bento__media bento__fan" aria-hidden="true">
-      {FUNNEL_SHOTS.map((f, i) => (
+      {FAN_SHOTS.map((f, i) => (
         <span key={f.file} className="bento__photo bento__photo--page" style={{ ['--i' as string]: i }}>
           <img src={thumbSrc(f)} alt="" loading="lazy" decoding="async" />
         </span>
@@ -126,9 +118,9 @@ function FunnelsPreview() {
   )
 }
 
-function AIPreview() {
-  const half = Math.ceil(AI_LEAVES.length / 2)
-  const rows = [AI_LEAVES.slice(0, half), AI_LEAVES.slice(half)]
+function TechPreview() {
+  const half = Math.ceil(TECH_LEAVES.length / 2)
+  const rows = [TECH_LEAVES.slice(0, half), TECH_LEAVES.slice(half)]
   return (
     <div className="bento__media bento__chips" aria-hidden="true">
       {rows.map((row, r) => (
@@ -147,26 +139,31 @@ function AIPreview() {
   )
 }
 
-function AppsPreview() {
+function QAPreview() {
   return (
-    <div className="bento__media bento__reel bento__reel--row" aria-hidden="true">
-      <div className="bento__reel-track">
-        {[...APP_SHOTS, ...APP_SHOTS].map((src, i) => (
-          <span key={i} className="bento__shot bento__shot--app">
-            <img src={src} alt="" loading="lazy" decoding="async" />
+    <ul className="bento__media bento__offers" role="list" aria-hidden="true">
+      {QA_LINES.map(({ Icon, title, note }, i) => (
+        <li key={title} className="bento__offer" style={{ ['--i' as string]: i }}>
+          <span className="bento__offer-tile">
+            <Icon size={15} weight="duotone" />
           </span>
-        ))}
-      </div>
-    </div>
+          <span className="bento__offer-text">
+            <span className="bento__offer-title">{title}</span>
+            <span className="bento__offer-note">{note}</span>
+          </span>
+          <span className="bento__offer-num">0{i + 1}</span>
+        </li>
+      ))}
+    </ul>
   )
 }
 
 const PROJECTS: Project[] = [
-  { id: 'workflows', cat: 'work', index: '01', title: 'Project Title', desc: 'PLACEHOLDER - tell me what to put here: what these screens show.', Icon: FlowIcon, logos: [GHL], eyebrow: 'Screenshots', Section: AutomationsPanel, span: 2, Preview: WorkflowsPreview },
-  { id: 'plan', cat: 'work', index: '02', title: 'Sample Document', desc: 'PLACEHOLDER - tell me what to put here: the document this opens.', Icon: PlanIcon, logos: [GHL], eyebrow: 'Sample document', Section: PlanPanel, Preview: PlanPreview },
-  { id: 'funnels', cat: 'sites', index: '06', title: 'Pages and sites', desc: 'PLACEHOLDER - the pages in this reel. Spin the reel.', Icon: GlobeIcon, logos: [GHL], eyebrow: 'Pages and sites', Section: BarrelPanel, Preview: FunnelsPreview },
-  { id: 'ai', cat: 'ai', index: '07', title: 'Your systems title here', desc: 'PLACEHOLDER - tell me what to put here: the systems you run.', Icon: SparkIcon, logos: [CLAUDE_CODE, CODEX, HERMES], eyebrow: 'Your systems', Section: AIWindow, Preview: AIPreview },
-  { id: 'apps', cat: 'apps', index: '08', title: 'Apps and tools', desc: 'PLACEHOLDER - tell me what to put here: the apps and tools you ship.', Icon: DeviceIcon, logos: [PLAY, EXPO, CHROME], eyebrow: 'Your apps', Section: AppsWindow, span: 2, Preview: AppsPreview },
+  { id: 'workflows', cat: 'work', index: '01', title: 'FMS - Facility Management System', desc: 'Equipment and requests with role-based access and two-level approval. I worked on it as developer, QA and release coordinator, and it is now in production.', Icon: FlowIcon, eyebrow: 'Work project', Section: FMSPanel, span: 2, Preview: ReelPreview },
+  { id: 'plan', cat: 'work', index: '02', title: 'Expense Management System', desc: 'I am Project Manager: I coordinate developers, QA and stakeholders from development through UAT to production release.', Icon: PlanIcon, eyebrow: 'Work project', Section: ExpensePanel, Preview: UATPreview },
+  { id: 'funnels', cat: 'work', index: '06', title: 'All case studies', desc: 'Every project on one carousel. Spin it and open any page.', Icon: GlobeIcon, eyebrow: 'Case studies', Section: BarrelPanel, Preview: FanPreview },
+  { id: 'ai', cat: 'skills', index: '07', title: 'Tech stack', desc: 'React, Next.js, Laravel, NestJS, MySQL, PostgreSQL, Docker and AI-assisted development.', Icon: SparkIcon, logos: [REACT, NEXT, NEST], eyebrow: 'Skills', Section: TechWindow, Preview: TechPreview },
+  { id: 'apps', cat: 'skills', index: '08', title: 'QA & Testing', desc: 'A year of QA work: manual, automation and regression testing, UAT, and staging and production validation.', Icon: DeviceIcon, eyebrow: 'Skills', Section: QAWindow, span: 2, Preview: QAPreview },
 ]
 
 /** The icon tile, or the real marks stacked horizontally in its place. */
@@ -300,9 +297,9 @@ export default function ProjectsGrid() {
       <header className="pgrid__head">
         <span className="pgrid__eyebrow">Projects</span>
         <h1 className="pgrid__title" id="projects-title">
-          Your projects headline goes right here.
+          What I’ve built, tested and shipped.
         </h1>
-        <p className="pgrid__lede">PLACEHOLDER - tell me what to put here: one line on the work below. Open a card to see it full size.</p>
+        <p className="pgrid__lede">Work projects I built, tested and released, plus the ventures I run myself. Open a card to see the full case study.</p>
       </header>
 
       {phone && (

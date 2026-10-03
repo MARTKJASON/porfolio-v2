@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NFC Touchpoints - Digital Business Cards</title>
+<link rel="stylesheet" href="case.css">
+<style>
+body{--accent:#7C3AED}
+.map{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:18px;align-items:center}
+.phone{justify-self:center;width:150px;height:260px;border-radius:28px;background:#0B1E3F;padding:10px;box-shadow:0 20px 40px -20px rgba(11,30,63,.6)}
+.phone div{height:100%;border-radius:20px;background:linear-gradient(160deg,#EDE9FE,#C4B5FD);display:grid;place-items:center;text-align:center;font-size:12px;font-weight:700;color:#4C1D95;padding:12px}
+.phone span{display:block;font-size:30px;margin-bottom:6px}
+.points{display:grid;gap:9px}
+.point{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:12px;padding:9px 12px;font-size:13px}
+.point code{font:12px ui-monospace,Consolas,monospace;color:#6D28D9;background:#F5F3FF;padding:2px 8px;border-radius:6px}
+.dest{display:grid;gap:10px}
+.dest div{border-radius:12px;padding:12px 14px;font-size:13px;font-weight:700;color:#fff}
+</style></head>
+<body>
+<div class="wrap">
+  <nav>
+    <span class="brand"><i>N</i>NFC Touchpoints</span>
+    <span class="byline">Case study · <b>Mark Jason Delima</b></span>
+  </nav>
+
+  <header class="hero">
+    <span class="tag">Personal venture · In progress</span>
+    <h1>NFC cards that bring in customers</h1>
+    <p class="lede">An NFC product for businesses that does more than share a link. Each tap point, like the counter, a table or the receipt, goes to its own URL, so one card can collect Google reviews, send people to Facebook or capture leads.</p>
+    <div class="meta">
+      <div><span>My role</span><b>Founder · Product &amp; Tech</b></div>
+      <div><span>Hardware</span><b>NTAG215 NFC cards</b></div>
+      <div><span>Focus</span><b>Lead generation · Reviews</b></div>
+    </div>
+  </header>
+
+  <div class="mock">
+    <div class="mock__bar"><i></i><i></i><i></i><span>restaurant touchpoint map</span></div>
+    <div class="mock__body map">
+      <div class="phone"><div><span>📱</span>Tap a card<br>to open the link</div></div>
+      <div class="points">
+        <div class="point">Counter <code>/counter</code></div>
+        <div class="point">Table 01 <code>/table-01</code></div>
+        <div class="point">Table 02 <code>/table-02</code></div>
+        <div class="point">Receipt <code>/receipt</code></div>
+        <div class="point">Takeout <code>/takeout</code></div>
+      </div>
+      <div class="dest">
+        <div style="background:#4285F4">Google Review</div>
+        <div style="background:#1877F2">Facebook page</div>
+        <div style="background:#7C3AED">Dynamic redirect</div>
+      </div>
+    </div>
+  </div>
+  <p class="note">Concept diagram of the restaurant touchpoint setup.</p>
+
+  <section class="block">
+    <h2>The idea</h2>
+    <p>Most NFC cards point to a single link. Giving each touchpoint its own path lets a business change where a tap goes at any time, and see which spot in the store gets people to act.</p>
+    <div class="flow">
+      <span>Customer taps card</span><em>→</em>
+      <span>Touchpoint URL</span><em>→</em>
+      <span>Dynamic redirect</span><em>→</em>
+      <span class="on">Review · Follow · Lead</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>What I explored</h2>
+    <div class="grid">
+      <div class="card"><span class="n">01</span><h3>Touchpoint architecture</h3><p>One path for each place a customer is: counter, tables, receipt and takeout.</p></div>
+      <div class="card"><span class="n">02</span><h3>Dynamic redirects</h3><p>The card stays the same while its destination can change, with no reprinting.</p></div>
+      <div class="card"><span class="n">03</span><h3>Review &amp; social links</h3><p>Tap-to-phone shortcuts to Google Reviews and Facebook pages.</p></div>
+      <div class="card"><span class="n">04</span><h3>NTAG215 hardware</h3><p>Choosing and programming NFC chips that work on everyday phones.</p></div>
+      <div class="card"><span class="n">05</span><h3>Lead generation</h3><p>Turning a tap into a customer interaction the business can follow up on.</p></div>
+      <div class="card"><span class="n">06</span><h3>Reselling</h3><p>Looking at reselling NFC cards as a product line of its own.</p></div>
+    </div>
+  </section>
+
+  <div class="band">
+    <h2>Product thinking, not just code</h2>
+    <p>This project is as much about the business as the build: who the customer is, what a tap should achieve and how a small business can use it every day.</p>
+  </div>
+
+  <footer><span>NFC Touchpoints · Digital Business Cards</span><span>Mark Jason Delima</span></footer>
+</div>
+</body></html>

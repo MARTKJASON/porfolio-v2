@@ -2,19 +2,18 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 import {
-  Lightning,
-  EnvelopeSimple,
-  CalendarCheck,
-  Clock,
-  BellRinging,
-  VideoCamera,
-  FileText,
-  Trophy,
-  XCircle,
-  Hourglass,
-  Heart,
-  Plug,
-  Sparkle,
+  GitPullRequest,
+  GitMerge,
+  ArrowsClockwise,
+  TestTube,
+  Cube,
+  CloudCheck,
+  UsersThree,
+  RocketLaunch,
+  Bug,
+  Wrench,
+  PauseCircle,
+  GitBranch,
 } from '@/components/slab'
 import type { Icon } from '@/components/slab'
 
@@ -51,18 +50,18 @@ type FlowNode = {
 // Two tiers: the chain across the top, the outcomes fanning out just below.
 const NODES: FlowNode[] = [
   // top chain
-  { id: 'n-form',     Icon: Lightning,     title: 'Trigger',        subtitle: 'Form submitted',    x: 6,   y: 36,  variant: 'trigger' },
-  { id: 'n-email',    Icon: EnvelopeSimple, title: 'Send Email',    subtitle: 'Action',            x: 176, y: 36 },
-  { id: 'n-booked',   Icon: CalendarCheck, title: 'Update CRM',     subtitle: 'Action',            x: 346, y: 36 },
-  { id: 'n-24hr',     Icon: Clock,         title: 'Wait',           subtitle: 'Delay step',        x: 516, y: 36 },
-  { id: 'n-1hr',      Icon: BellRinging,   title: 'Reminder',       subtitle: 'Email & SMS',       x: 686, y: 36 },
-  { id: 'n-call',     Icon: VideoCamera,   title: 'Decision',       subtitle: 'Condition gate',    x: 866, y: 36, variant: 'gate' },
-  // outcomes (one tier, fanning out of the decision gate)
-  { id: 'n-proposal', Icon: FileText,      title: 'Outcome A',      subtitle: 'Next action',       x: 56,  y: 268 },
-  { id: 'n-won',      Icon: Trophy,        title: 'Won',            subtitle: 'Goal reached',      x: 240, y: 268, variant: 'win' },
-  { id: 'n-maybe',    Icon: Hourglass,     title: 'Outcome B',      subtitle: 'Not ready yet',     x: 468, y: 268 },
-  { id: 'n-nurture',  Icon: Heart,         title: 'AI Step',        subtitle: 'Follow-up drip',    x: 652, y: 268 },
-  { id: 'n-lost',     Icon: XCircle,       title: 'Lost',           subtitle: 'Closed out',        x: 866, y: 268, variant: 'lost' },
+  { id: 'n-form',     Icon: GitPullRequest, title: 'Pull Request',  subtitle: 'Code reviewed',     x: 6,   y: 36,  variant: 'trigger' },
+  { id: 'n-email',    Icon: GitMerge,      title: 'Merge',          subtitle: 'To main',           x: 176, y: 36 },
+  { id: 'n-booked',   Icon: ArrowsClockwise, title: 'CI/CD',        subtitle: 'Pipeline runs',     x: 346, y: 36 },
+  { id: 'n-24hr',     Icon: TestTube,      title: 'Tests',          subtitle: 'Automated suite',   x: 516, y: 36 },
+  { id: 'n-1hr',      Icon: Cube,          title: 'Build',          subtitle: 'Docker image',      x: 686, y: 36 },
+  { id: 'n-call',     Icon: CloudCheck,    title: 'Staging',        subtitle: 'QA validation',     x: 866, y: 36, variant: 'gate' },
+  // outcomes (one tier, fanning out of the staging gate)
+  { id: 'n-proposal', Icon: UsersThree,    title: 'UAT',            subtitle: 'Users sign off',    x: 56,  y: 268 },
+  { id: 'n-won',      Icon: RocketLaunch,  title: 'Production',     subtitle: 'Released',          x: 240, y: 268, variant: 'win' },
+  { id: 'n-maybe',    Icon: Bug,           title: 'Bug Found',      subtitle: 'Back to dev',       x: 468, y: 268 },
+  { id: 'n-nurture',  Icon: Wrench,        title: 'Fix & Retest',   subtitle: 'Regression',        x: 652, y: 268 },
+  { id: 'n-lost',     Icon: PauseCircle,   title: 'Hold',           subtitle: 'Not release-ready', x: 866, y: 268, variant: 'lost' },
 ]
 
 type LinkKind = 'solid' | 'dash' | 'loop'
@@ -76,7 +75,7 @@ const LINKS: Link[] = [
   { from: 'n-24hr',   to: 'n-1hr' },
   { from: 'n-1hr',    to: 'n-call' },
   // a loop back to an earlier step
-  { from: 'n-1hr',    to: 'n-booked', kind: 'loop', label: 'Loop Back' },
+  { from: 'n-1hr',    to: 'n-booked', kind: 'loop', label: 'Rebuild' },
   // decision outcomes (dashed dispatch)
   { from: 'n-call',   to: 'n-proposal', kind: 'dash' },
   { from: 'n-call',   to: 'n-maybe',    kind: 'dash' },
@@ -87,9 +86,9 @@ const LINKS: Link[] = [
 ]
 
 export const TOOLS: { Icon: Icon; label: string }[] = [
-  { Icon: Plug,           label: 'Your CRM' },
-  { Icon: EnvelopeSimple, label: 'Email & SMS' },
-  { Icon: Sparkle,        label: 'AI Assistant' },
+  { Icon: GitBranch,       label: 'Git' },
+  { Icon: ArrowsClockwise, label: 'CI/CD' },
+  { Icon: Cube,            label: 'Docker' },
 ]
 
 const SVGNS = 'http://www.w3.org/2000/svg'
@@ -340,19 +339,20 @@ export default function Autopilot({ compact = false, maxScale = 1 }: AutopilotPr
       ref={sectionRef}
       className={compact ? 'autopilot autopilot--compact' : 'autopilot'}
       id="autopilot"
-      aria-label={compact ? 'Example automation flow, end to end' : undefined}
+      aria-label={compact ? 'Delivery pipeline, from pull request to production' : undefined}
       aria-labelledby={compact ? undefined : 'autopilot-heading'}
       data-reveal
     >
       {!compact && (
       <header className="autopilot__head">
-        <span className="autopilot__eyebrow">Live automation</span>
+        <span className="autopilot__eyebrow">Delivery pipeline</span>
         <h2 id="autopilot-heading" className="autopilot__headline">
-          Your workflow, end to end.
+          From pull request to production.
         </h2>
         <p className="autopilot__intro">
-          PLACEHOLDER - tell me what to put here: two or three sentences walking
-          through this example automation, from the trigger to each outcome.
+          A reviewed pull request merges to main, and CI/CD runs the tests and
+          builds the Docker image. Staging is where QA validates it. From there
+          it goes to UAT and production, or back to dev for a fix and a retest.
         </p>
       </header>
       )}
@@ -364,12 +364,12 @@ export default function Autopilot({ compact = false, maxScale = 1 }: AutopilotPr
             <span className="autopilot__dot autopilot__dot--y" />
             <span className="autopilot__dot autopilot__dot--g" />
           </span>
-          <span className="autopilot__titlebar-label">Automation Workflow</span>
+          <span className="autopilot__titlebar-label">Delivery Pipeline</span>
         </div>
 
         <div className="autopilot__canvas">
           <p className="autopilot__caption">
-            Your flow caption, in one short line.
+            How a change gets from a pull request to production.
           </p>
 
           <div className="autopilot__board" aria-hidden="true">

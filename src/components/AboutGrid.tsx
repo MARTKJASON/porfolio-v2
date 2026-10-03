@@ -1,60 +1,63 @@
 import type { CSSProperties } from 'react'
-import { ArrowUpRight, MapPin } from '@/components/slab'
+import { ArrowUpRight, MapPin, Briefcase, Diamond, TestTube, UsersThree, RocketLaunch, type Icon } from '@/components/slab'
 import { profile } from '@/data/profile'
 
 /**
  * AboutGrid - the About view as a fixed viewport.
  *
- * One glass sheet, two columns: who you are on the left, the illustration
- * on the right. Sized to the panel, so nothing here scrolls.
+ * One glass sheet, two columns: who I am on the left, the portrait on the
+ * right. Sized to the panel, so nothing here scrolls.
  *
  * The left column is a ladder, not a paragraph block: one display statement,
- * one line of context, then the four things you do - each carrying the marks
- * of the tools it is built with. The tools are the proof, so they are the
- * visual. Swap the marks below for your own (any square SVG/PNG in public/).
+ * one line of context, then the four things I do - each carrying the marks
+ * of the tools it uses. A mark is either a logo (`src`) or a glyph (`Icon`).
  */
 
-const N8N = { src: '/icons/ai/n8n.svg', name: 'n8n' }
-const ZAPIER = { src: '/icons/ai/zapier.svg', name: 'Zapier' }
+type Mark = { name: string; src?: string; Icon?: Icon }
+
+const REACT = { src: '/icons/ai/react.svg', name: 'React' }
+const NEXT = { src: '/icons/ai/nextdotjs.svg', name: 'Next.js' }
+const LARAVEL = { src: '/icons/ai/laravel.svg', name: 'Laravel' }
+const NEST = { src: '/icons/ai/nestjs.svg', name: 'NestJS' }
+const TS = { src: '/icons/ai/typescript.svg', name: 'TypeScript' }
 const DOCKER = { src: '/icons/ai/docker.svg', name: 'Docker' }
+const GIT = { src: '/icons/ai/git.svg', name: 'Git' }
+const MYSQL = { src: '/icons/ai/mysql.svg', name: 'MySQL' }
+const POSTGRES = { src: '/icons/ai/postgresql.svg', name: 'PostgreSQL' }
 const CLAUDE = { src: '/icons/ai/claude-color.svg', name: 'Claude' }
 const CODEX = { src: '/icons/ai/codex.svg', name: 'Codex' }
-const GLM = { src: '/icons/ai/zhipu.svg', name: 'GLM' }
-const QWEN = { src: '/icons/ai/qwen.svg', name: 'Qwen' }
-const HERMES = { src: '/icons/ai/hermes.svg', name: 'Hermes' }
-const NAMECHEAP = { src: '/icons/ai/namecheap.svg', name: 'Namecheap' }
-const CLOUDFLARE = { src: '/icons/ai/cloudflare.svg', name: 'Cloudflare' }
-const GITHUB = { src: '/icons/ai/github.svg', name: 'GitHub' }
-const GWS = { src: '/icons/googleworkspace.svg', name: 'Google Workspace' }
-const SLACK = { src: '/icons/ai/slack-color.svg', name: 'Slack' }
-const FIREFLIES = { src: '/icons/ai/fireflies.png', name: 'Fireflies' }
+const CURSOR = { src: '/icons/ai/cursor.svg', name: 'Cursor' }
+const VSCODE = { src: '/icons/vscode.svg', name: 'VS Code' }
+const TESTING = { Icon: TestTube, name: 'Testing' }
+const UAT = { Icon: UsersThree, name: 'UAT' }
+const RELEASE = { Icon: RocketLaunch, name: 'Release' }
 
 type Capability = {
   index: string
   title: string
-  marks: { src: string; name: string }[]
+  marks: Mark[]
 }
 
 const CAPABILITIES: Capability[] = [
   {
     index: '01',
-    title: 'Your role 1',
-    marks: [N8N, ZAPIER, DOCKER],
+    title: 'Full-stack development',
+    marks: [REACT, NEXT, TS, LARAVEL, NEST],
   },
   {
     index: '02',
-    title: 'Your role 2',
-    marks: [CLAUDE, CODEX, GLM, QWEN, HERMES],
+    title: 'Project management, UAT & release',
+    marks: [TESTING, UAT, RELEASE],
   },
   {
     index: '03',
-    title: 'Your role 3',
-    marks: [CLAUDE, CODEX, NAMECHEAP, CLOUDFLARE, GITHUB],
+    title: 'Deployment & databases',
+    marks: [DOCKER, GIT, MYSQL, POSTGRES],
   },
   {
     index: '04',
-    title: 'Your role 4',
-    marks: [GWS, SLACK, FIREFLIES],
+    title: 'AI-Driven Development (AIDD)',
+    marks: [CLAUDE, CODEX, CURSOR, VSCODE],
   },
 ]
 
@@ -67,24 +70,25 @@ export default function AboutGrid() {
           {`Hi, I’m ${profile.firstName}.`}
         </h1>
         <p className="pgrid__lede">
-          PLACEHOLDER - tell me what to put here: one line on what you do.
+          Project Manager & Full-Stack Developer, based in the Philippines.
         </p>
       </header>
 
       <div className="home__glass agrid__glass">
         <div className="agrid__copy">
           <p className="agrid__lead">
-            Your big statement goes here, in one or two lines.
-            <span> A softer second half that finishes the thought.</span>
+            I build software, test it, and help the team ship it.
+            <span> I have worked at every stage, from user story to production.</span>
           </p>
 
           <p className="agrid__note">
-            <strong>Your company name</strong>, and{' '}
-            <a className="agrid__link" href="#">
-              your product
+            <strong>Software QA, then full-stack development, now Project Manager / Technical Lead.</strong>{' '}
+            I currently manage an Expense Management System: I track user stories and priorities,
+            coordinate developers, QA and stakeholders, review PRs, run UAT and plan releases. Outside work I run{' '}
+            <a className="agrid__link" href="https://danglingco.vercel.app" target="_blank" rel="noopener noreferrer">
+              Dangling Co
             </a>{' '}
-            - PLACEHOLDER - tell me what to put here: two sentences on your company, what
-            you sell or build, and who it is for.
+            and I&rsquo;m building an NFC product for businesses.
           </p>
 
           <ul className="agrid__caps" role="list">
@@ -96,8 +100,13 @@ export default function AboutGrid() {
                       key={m.name}
                       className="agrid__mark"
                       style={{ '--i': c.marks.length - i } as CSSProperties}
+                      title={m.name}
                     >
-                      <img src={m.src} alt={m.name} loading="lazy" decoding="async" />
+                      {m.Icon ? (
+                        <m.Icon weight="duotone" aria-label={m.name} />
+                      ) : (
+                        <img src={m.src} alt={m.name} loading="lazy" decoding="async" />
+                      )}
                     </span>
                   ))}
                 </span>
@@ -112,12 +121,12 @@ export default function AboutGrid() {
           {/* One plate, two cells sharing a mark / title / meta anatomy. */}
           <div className="agrid__bar">
             <span className="agrid__cell">
-              <span className="agrid__cell-mark agrid__cell-mark--img">
-                <img src="/placeholders/badge.svg" alt="" loading="lazy" decoding="async" />
+              <span className="agrid__cell-mark">
+                <Briefcase size={16} weight="fill" aria-hidden="true" />
               </span>
               <span className="agrid__cell-copy">
-                <span className="agrid__cell-title">Credential name</span>
-                <span className="agrid__cell-meta">Credential ID</span>
+                <span className="agrid__cell-title">3 years experience</span>
+                <span className="agrid__cell-meta">QA → Full-stack → PM / Tech Lead</span>
               </span>
             </span>
 
@@ -127,17 +136,17 @@ export default function AboutGrid() {
               </span>
               <span className="agrid__cell-copy">
                 <span className="agrid__cell-title">{profile.location}</span>
-                <span className="agrid__cell-meta">Timezone · working hours</span>
+                <span className="agrid__cell-meta">GMT+8 · PHT</span>
               </span>
             </span>
 
-            <a className="agrid__cell agrid__cell--wide" href="#">
-              <span className="agrid__cell-mark agrid__cell-mark--plain">
-                <img src="/placeholders/logo.svg" alt="" loading="lazy" decoding="async" />
+            <a className="agrid__cell agrid__cell--wide" href="https://danglingco.vercel.app" target="_blank" rel="noopener noreferrer">
+              <span className="agrid__cell-mark">
+                <Diamond size={16} weight="fill" aria-hidden="true" />
               </span>
               <span className="agrid__cell-copy">
-                <span className="agrid__cell-title">Community or affiliation</span>
-                <span className="agrid__cell-meta">Your role there</span>
+                <span className="agrid__cell-title">Dangling Co</span>
+                <span className="agrid__cell-meta">Founder · danglingco.vercel.app</span>
               </span>
               <ArrowUpRight className="agrid__cell-go" size={15} weight="bold" aria-hidden="true" />
             </a>
@@ -146,8 +155,8 @@ export default function AboutGrid() {
 
         <div className="agrid__portrait">
           <img
-            src="/avatar.svg"
-            alt="Portrait placeholder"
+            src={profile.hero.portraitSrc}
+            alt={profile.hero.portraitAlt}
             loading="eager"
             decoding="async"
             width={400}

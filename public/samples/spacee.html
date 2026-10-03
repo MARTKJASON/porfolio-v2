@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spacee - Rental Room &amp; Office Platform</title>
+<link rel="stylesheet" href="case.css">
+<style>
+body{--accent:#E0234E}
+.search{display:flex;gap:10px;margin-top:14px}
+.search div{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--muted)}
+.spaces{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.space{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.space .img{height:110px}
+.space .txt{padding:10px 12px;font-size:13px}
+.space b{display:block;font-size:14px}
+.api{margin-top:16px;background:#0B1E3F;color:#E2E8F0;border-radius:12px;padding:14px 16px;font:12.5px/1.7 ui-monospace,Consolas,monospace}
+.api i{font-style:normal;color:#FF7A9A;font-weight:700}
+</style></head>
+<body>
+<div class="wrap">
+  <nav>
+    <span class="brand"><i>S</i>Spacee</span>
+    <span class="byline">Case study · <b>Mark Jason Delima</b></span>
+  </nav>
+
+  <header class="hero">
+    <span class="tag">Work project · Backend</span>
+    <h1>Spacee: rental rooms &amp; offices in Japan</h1>
+    <p class="lede">A web platform for finding and managing rental rooms and office spaces in Japan. My work was on the NestJS backend: the API and the database-driven features the platform runs on.</p>
+    <div class="meta">
+      <div><span>My role</span><b>Full-Stack Developer</b></div>
+      <div><span>Stack</span><b>NestJS · TypeScript · SQL</b></div>
+      <div><span>Focus</span><b>Backend &amp; API development</b></div>
+    </div>
+  </header>
+
+  <div class="mock">
+    <div class="mock__bar"><i></i><i></i><i></i><span>spacee / search</span></div>
+    <div class="mock__body">
+      <div class="ui-row">
+        <div><div class="ui-h">Find a space</div><div class="ui-sub">Rooms and offices across Japan</div></div>
+        <span class="btn">List your space</span>
+      </div>
+      <div class="search"><div>Area</div><div>Space type</div><div>Date</div><span class="btn">Search</span></div>
+      <div class="spaces">
+        <div class="space"><div class="img" style="background:linear-gradient(135deg,#FDE2E8,#F9A8BA)"></div><div class="txt"><b>Private office</b>Tokyo</div></div>
+        <div class="space"><div class="img" style="background:linear-gradient(135deg,#E0E7FF,#A5B4FC)"></div><div class="txt"><b>Meeting room</b>Osaka</div></div>
+        <div class="space"><div class="img" style="background:linear-gradient(135deg,#DCFCE7,#86EFAC)"></div><div class="txt"><b>Rental room</b>Fukuoka</div></div>
+      </div>
+      <div class="api">
+        <i>GET</i>  /spaces?area=&amp;type=      <span style="opacity:.6">// search listings</span><br>
+        <i>GET</i>  /spaces/:id               <span style="opacity:.6">// listing detail</span><br>
+        <i>POST</i> /spaces                   <span style="opacity:.6">// owner creates a listing</span>
+      </div>
+    </div>
+  </div>
+  <p class="note">Illustrative mock-up. Endpoints are examples of the kind of API work, not the real routes.</p>
+
+  <section class="block">
+    <h2>What I worked on</h2>
+    <p>Spacee is where I did most of my backend work: designing endpoints, working with the database and making the platform's data available to the frontend.</p>
+    <div class="grid">
+      <div class="card"><span class="n">01</span><h3>NestJS API</h3><p>Built backend modules, controllers and services in NestJS with TypeScript.</p></div>
+      <div class="card"><span class="n">02</span><h3>Database-driven features</h3><p>Built features on relational data: listings, spaces and the queries behind them.</p></div>
+      <div class="card"><span class="n">03</span><h3>Full-stack delivery</h3><p>Connected backend work to the web frontend, end to end.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Stack</h2>
+    <div class="chips"><span>NestJS</span><span>TypeScript</span><span>Node.js</span><span>REST API</span><span>SQL database</span><span>Git workflow</span></div>
+  </section>
+
+  <div class="band">
+    <h2>Backend skills, on a real product</h2>
+    <p>Spacee is the project that best shows my server-side work: structuring an API in NestJS and building features on a relational database.</p>
+  </div>
+
+  <footer><span>Spacee · Rental Room &amp; Office Platform</span><span>Mark Jason Delima</span></footer>
+</div>
+</body></html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FMS - Facility Management System</title>
+<link rel="stylesheet" href="case.css">
+<style>
+body{--accent:#2563EB}
+.fms{display:grid;grid-template-columns:190px 1fr;gap:20px}
+.side{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:13px;display:grid;gap:4px;align-content:start}
+.side b{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:8px 0 4px}
+.side span{padding:7px 10px;border-radius:9px}
+.side span.on{background:#E8F0FE;color:#1D4ED8;font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.kpis div{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.kpis b{font-size:22px;display:block}
+</style></head>
+<body>
+<div class="wrap">
+  <nav>
+    <span class="brand"><i>F</i>FMS</span>
+    <span class="byline">Case study · <b>Mark Jason Delima</b></span>
+  </nav>
+
+  <header class="hero">
+    <span class="tag">Work project · In production</span>
+    <h1>Facility Management System</h1>
+    <p class="lede">An internal platform for equipment and requests, with role-based access and a two-level approval workflow. I worked on it as a developer, then as QA, then as the person coordinating its release to production.</p>
+    <div class="meta">
+      <div><span>My role</span><b>Developer · QA · PM / Coordinator</b></div>
+      <div><span>Type</span><b>Internal web platform</b></div>
+      <div><span>Status</span><b>Live in production · Phase 2 planning</b></div>
+    </div>
+  </header>
+
+  <div class="mock">
+    <div class="mock__bar"><i></i><i></i><i></i><span>fms / requests</span></div>
+    <div class="mock__body fms">
+      <div class="side">
+        <b>Workspace</b>
+        <span>My equipment</span>
+        <span class="on">Requests</span>
+        <span>Employees</span>
+        <span>Asset import</span>
+        <b>Reports</b>
+        <span>Facility Management Sheet</span>
+        <span>HRIS sync</span>
+      </div>
+      <div>
+        <div class="ui-row">
+          <div><div class="ui-h">Equipment requests</div><div class="ui-sub">Signed in as Manager</div></div>
+          <div><span class="btn btn--ghost">Export .xlsx</span> <span class="btn">New request</span></div>
+        </div>
+        <div class="kpis">
+          <div><span class="ui-sub">Pending Admin</span><b>4</b></div>
+          <div><span class="ui-sub">Pending Manager</span><b>3</b></div>
+          <div><span class="ui-sub">Approved this month</span><b>18</b></div>
+        </div>
+        <table>
+          <tr><th>Request</th><th>From</th><th>Stage</th><th></th></tr>
+          <tr><td>Laptop replacement</td><td>Member</td><td><span class="pill pill--blue">Pending Manager</span></td><td><span class="btn">Approve</span></td></tr>
+          <tr><td>Monitor, 27"</td><td>Member</td><td><span class="pill pill--wait">Pending Admin</span></td><td></td></tr>
+          <tr><td>Headset</td><td>Member</td><td><span class="pill pill--ok">Approved</span></td><td></td></tr>
+          <tr><td>Docking station</td><td>Member</td><td><span class="pill pill--bad">Rejected</span></td><td></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <p class="note">Illustrative mock-up of the request flow, not a production screenshot.</p>
+
+  <section class="block">
+    <h2>How a request moves</h2>
+    <p>Members create a request for their equipment. An Admin does the first-level review, then a Manager makes the final decision. A request at the Pending Manager stage can be approved or rejected there.</p>
+    <div class="flow">
+      <span>Member creates request</span><em>→</em>
+      <span>Pending Admin</span><em>→</em>
+      <span>Pending Manager</span><em>→</em>
+      <span class="on">Approved / Rejected</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>What the system does</h2>
+    <div class="grid">
+      <div class="card"><span class="n">01</span><h3>Role-based access</h3><p>Member, Admin and Manager roles, each with its own permissions and views.</p></div>
+      <div class="card"><span class="n">02</span><h3>Equipment workflow</h3><p>Members manage assigned equipment and raise requests that go through two-level approval.</p></div>
+      <div class="card"><span class="n">03</span><h3>HRIS employee sync</h3><p>Employee records are kept in step with the HR system instead of being entered by hand.</p></div>
+      <div class="card"><span class="n">04</span><h3>Asset imports</h3><p>Bulk import of assets, so a whole inventory goes in at once.</p></div>
+      <div class="card"><span class="n">05</span><h3>Facility Management Sheet</h3><p>A downloadable .xlsx report of facilities and equipment for management.</p></div>
+      <div class="card"><span class="n">06</span><h3>Employee management</h3><p>Admin tools to manage employees and what is assigned to them.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>My part</h2>
+    <p>I started out building and testing features. Over time I took on coordinating the team and the release.</p>
+    <div class="grid grid--2">
+      <div class="card">
+        <h3>Build &amp; test</h3>
+        <ul class="ticks">
+          <li>Feature development with AI-assisted implementation</li>
+          <li>PR reviews and code review</li>
+          <li>Staging testing and regression checks</li>
+          <li>Production-readiness checks before release</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Coordinate &amp; release</h3>
+        <ul class="ticks">
+          <li>Assigned user stories and tasks to developers</li>
+          <li>Followed up on staging issues</li>
+          <li>Facilitated UAT and coordinated the production release</li>
+          <li>Prepared the Phase 2 epics</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="band">
+    <h2>Production demo</h2>
+    <p>I ran the production demo myself. I walked through the Manager and Member roles, HRIS synchronisation, asset importing and the Facility Management Sheet download.</p>
+    <div class="chips"><span>Manager role</span><span>Member role</span><span>HRIS sync</span><span>Asset import</span><span>.xlsx export</span></div>
+  </div>
+
+  <footer><span>FMS · Facility Management System</span><span>Mark Jason Delima</span></footer>
+</div>
+</body></html>

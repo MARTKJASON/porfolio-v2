@@ -74,7 +74,7 @@ export async function submitLead(lead: Lead): Promise<SubmitResult> {
     return { via: 'webhook' }
   }
 
-  const subject = `Project inquiry from ${lead.firstName} ${lead.lastName}`
+  const subject = `Portfolio message from ${lead.firstName} ${lead.lastName}`
   const body = [`Name: ${lead.firstName} ${lead.lastName}`, `Email: ${lead.email}`, '', lead.message].join('\n')
   // encodeURIComponent on every value blocks header injection (CR/LF) and
   // parameter smuggling via & or ?.

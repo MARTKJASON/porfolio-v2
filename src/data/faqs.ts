@@ -9,22 +9,22 @@ export type QA = { q: string; a: string }
 export const FAQS: QA[] = [
   {
     q: 'What do you do?',
-    a: 'PLACEHOLDER - tell me what to put here: the kinds of work you take on, and who it is usually for.',
+    a: 'I am a Project Manager with a full-stack and QA background. I currently manage an Expense Management System, coordinating developers, QA and stakeholders from development through UAT and production release.',
   },
   {
-    q: 'How fast can you start?',
-    a: 'PLACEHOLDER - tell me what to put here: your usual lead time for small fixes vs. larger projects, and your working hours.',
+    q: 'What can you help with?',
+    a: 'Project management and delivery, full-stack development, QA and UAT, deployment with Docker and CI/CD, and AI-Driven Development (AIDD) with Claude and Codex.',
   },
   {
-    q: 'How much do you charge?',
-    a: 'PLACEHOLDER - tell me what to put here: how you price (hourly, per project, retainer) and how a quote is put together.',
+    q: 'What is your experience?',
+    a: 'I started in software QA, moved into full-stack development, and now work as a Project Manager / Technical Lead. My work includes FMS (now in production), the Expense Management System I currently manage, and the NestJS backend for Spacee.',
   },
   {
     q: 'Where are you based?',
-    a: 'PLACEHOLDER - tell me what to put here: your location or timezone, and which client timezones you overlap with.',
+    a: 'I am in the Philippines, on GMT+8.',
   },
   {
     q: 'What happens after I write?',
-    a: 'PLACEHOLDER - tell me what to put here: how fast you reply and what the next step looks like.',
+    a: 'Your message goes to my email and I will reply as soon as I can. Mention the role or project and a bit of context so I can give you a useful answer.',
   },
 ]

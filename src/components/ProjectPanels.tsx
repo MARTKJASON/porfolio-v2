@@ -1,11 +1,9 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { Ticket, Robot, FlowArrow, type Icon } from '@/components/slab'
 import { lazy, Suspense } from 'react'
-import WorkflowSamples from './WorkflowSamples'
 import AIStackGrid from './AIStackGrid'
-import { AppsSection } from './Projects'
 import { useFunnelModal } from './FunnelModal'
-import { websiteFunnel } from '@/data/funnels'
+import { caseStudies } from '@/data/funnels'
+import { techStack, qaStack } from '@/data/ai-stack'
 
 const FunnelBarrel = lazy(() => import('./FunnelBarrel'))
 
@@ -14,15 +12,6 @@ const FunnelBarrel = lazy(() => import('./FunnelBarrel'))
  * the moment the dialog opens - no section chrome to read past and no second
  * dialog to click into.
  */
-
-/** Only the strip of macOS windows, drifting on the backdrop. No window. */
-export function AutomationsPanel() {
-  return (
-    <div className="ppanel ppanel--strip">
-      <WorkflowSamples />
-    </div>
-  )
-}
 
 /** A plain mac window with a scrolling body, for the sections that are
  *  pages rather than frames. */
@@ -44,71 +33,55 @@ function SectionWindow({ label, children }: { label: string; children: ReactNode
   )
 }
 
-/** Only the barrel, spinning on the backdrop. Its own page preview still
- *  stacks above (z 9000). */
+/** Every case study on the barrel, spinning on the backdrop. Its own page
+ *  preview still stacks above (z 9000). */
 export function BarrelPanel() {
   const { openFull, modal } = useFunnelModal()
   return (
     <div className="ppanel ppanel--barrel">
       <Suspense fallback={<div className="funnels__barrel-skeleton" aria-hidden="true" />}>
-        <FunnelBarrel funnels={websiteFunnel} onOpen={openFull} />
+        <FunnelBarrel funnels={caseStudies} onOpen={openFull} />
       </Suspense>
       {modal}
     </div>
   )
 }
 
-/** The systems as a logo-first grid, in a scrolling window. */
-export function AIWindow() {
+/** The development skills as a logo-first grid, in a scrolling window. */
+export function TechWindow() {
   return (
-    <SectionWindow label="Your systems">
-      <AIStackGrid />
-    </SectionWindow>
-  )
-}
-export function AppsWindow() {
-  return (
-    <SectionWindow label="Your apps">
-      <AppsSection />
+    <SectionWindow label="Tech stack">
+      <AIStackGrid root={techStack} eyebrow="Tech stack" />
     </SectionWindow>
   )
 }
 
-/** The plan document, full height, straight away. */
-export function PlanPanel() {
+/** The QA skills, same grid. */
+export function QAWindow() {
   return (
-    <div className="ppanel ppanel--frame">
-      <FrameBar
-        host="yourdomain.com"
-        path="/sample-plan"
-      />
-      <LiveFrame src="/placeholders/sample-plan.html" title="Sample document" />
-    </div>
+    <SectionWindow label="QA & Testing">
+      <AIStackGrid root={qaStack} eyebrow="QA & Testing" />
+    </SectionWindow>
   )
 }
 
-/** `src` is a local page framed in the panel; `path` is what the fake
- *  address bar shows. Point these at your own pages. */
-type Build = { id: string; label: string; src: string; path: string; Icon: Icon }
+/** One case-study page, framed, open on arrival. `file` is a page in
+ *  public/samples/; `path` is what the fake address bar shows. */
+type Build = { label: string; file: string; path: string }
 
-const BUILDS: Build[] = [
-  { id: 'ticketing', label: 'Featured Project One', src: '/placeholders/sample-plan.html?doc=1', path: '/featured-one', Icon: Ticket },
-  { id: 'framework', label: 'Featured Project Two', src: '/placeholders/sample-plan.html?doc=2', path: '/featured-two', Icon: Robot },
-  { id: 'workflow', label: 'Featured Project Three', src: '/placeholders/sample-plan.html?doc=3', path: '/featured-three', Icon: FlowArrow },
-]
-
-/** One build, framed, open on arrival. */
 function BuildPanel({ build }: { build: Build }) {
   return (
     <div className="ppanel ppanel--frame">
-      <FrameBar host="yourdomain.com" path={build.path} />
-      <LiveFrame src={build.src} title={build.label} />
+      <FrameBar host="case study" path={build.path} />
+      <LiveFrame src={`/samples/${build.file}`} title={build.label} />
     </div>
   )
 }
-export const TicketingPanel = () => <BuildPanel build={BUILDS[0]} />
-export const FrameworkPanel = () => <BuildPanel build={BUILDS[1]} />
-export const WorkflowPanel = () => <BuildPanel build={BUILDS[2]} />
+export const FMSPanel = () => <BuildPanel build={{ label: 'FMS - Facility Management System', file: 'fms.html', path: '/fms' }} />
+export const ExpensePanel = () => <BuildPanel build={{ label: 'Expense Management System', file: 'expense.html', path: '/expense-management' }} />
+export const SpaceePanel = () => <BuildPanel build={{ label: 'Spacee', file: 'spacee.html', path: '/spacee' }} />
+export const NFCPanel = () => <BuildPanel build={{ label: 'NFC Touchpoints', file: 'nfc.html', path: '/nfc-touchpoints' }} />
+export const DanglingPanel = () => <BuildPanel build={{ label: 'Dangling Co', file: 'dangling-co.html', path: '/dangling-co' }} />
 
 function FrameBar({ host, path }: { host: string; path: string }) {
   return (

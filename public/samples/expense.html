@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expense Management System - Project Manager</title>
+<link rel="stylesheet" href="case.css">
+<style>
+body{--accent:#16A34A}
+.uat{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.uat div{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.uat b{font-size:22px;display:block}
+.bar{height:8px;border-radius:99px;background:#EEF0F4;margin-top:16px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+</style></head>
+<body>
+<div class="wrap">
+  <nav>
+    <span class="brand"><i>₱</i>Expense Management</span>
+    <span class="byline">Case study · <b>Mark Jason Delima</b></span>
+  </nav>
+
+  <header class="hero">
+    <span class="tag">Work project · Current role</span>
+    <h1>Expense Management System</h1>
+    <p class="lede">An expense management product in the same suite as FMS. I am the Project Manager: I coordinate developers, QA and stakeholders from development through UAT and production release, and I use AI-Driven Development (AIDD) with Claude and Codex to speed up implementation while code review, testing and validation keep quality in check.</p>
+    <div class="meta">
+      <div><span>My role</span><b>Project Manager</b></div>
+      <div><span>Approach</span><b>AI-Driven Development</b></div>
+      <div><span>Path</span><b>Dev → QA → UAT → Production</b></div>
+    </div>
+  </header>
+
+  <div class="mock">
+    <div class="mock__bar"><i></i><i></i><i></i><span>uat-tracker / expense-management</span></div>
+    <div class="mock__body">
+      <div class="ui-row">
+        <div><div class="ui-h">UAT tracker</div><div class="ui-sub">Scenarios run with users, with results and issues</div></div>
+        <span class="btn">Log issue</span>
+      </div>
+      <div class="uat">
+        <div><span class="ui-sub">Scenarios</span><b>—</b></div>
+        <div><span class="ui-sub">Passed</span><b>—</b></div>
+        <div><span class="ui-sub">Failed</span><b>—</b></div>
+        <div><span class="ui-sub">Retest</span><b>—</b></div>
+      </div>
+      <div class="bar"><i style="width:62%;background:#16A34A"></i><i style="width:14%;background:#F59E0B"></i><i style="width:8%;background:#DC2626"></i></div>
+      <table>
+        <tr><th>Scenario</th><th>Tester</th><th>Result</th><th>Issue</th></tr>
+        <tr><td>Submit an expense with receipt</td><td>User</td><td><span class="pill pill--ok">Pass</span></td><td>—</td></tr>
+        <tr><td>Approve / reject an expense</td><td>Approver</td><td><span class="pill pill--wait">Retest</span></td><td>Logged</td></tr>
+        <tr><td>Expense report export</td><td>Admin</td><td><span class="pill pill--bad">Fail</span></td><td>Logged</td></tr>
+        <tr><td>Role permissions check</td><td>Admin</td><td><span class="pill pill--ok">Pass</span></td><td>—</td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="note">Illustrative mock-up of a UAT tracker, not real test data.</p>
+
+  <section class="block">
+    <h2>What I manage</h2>
+    <p>I own the path from development to production. UAT is the last check before release: real users confirm the system does what they need, and anything they find gets tracked, fixed and retested.</p>
+    <div class="flow">
+      <span class="on">Development</span><em>→</em>
+      <span class="on">QA testing</span><em>→</em>
+      <span class="on">UAT</span><em>→</em>
+      <span class="on">Production</span>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>What I do as Project Manager</h2>
+    <div class="grid">
+      <div class="card"><span class="n">01</span><h3>Plan and track</h3><p>Manage user stories, tasks and priorities, and keep project progress visible.</p></div>
+      <div class="card"><span class="n">02</span><h3>Coordinate the team</h3><p>Keep developers, QA and stakeholders aligned so requirements are understood and delivered.</p></div>
+      <div class="card"><span class="n">03</span><h3>Run UAT</h3><p>Facilitate User Acceptance Testing and coordinate feedback, issue tracking and validation.</p></div>
+      <div class="card"><span class="n">04</span><h3>Review and validate</h3><p>Take part in PR reviews, staging validation, testing and production-readiness checks.</p></div>
+      <div class="card"><span class="n">05</span><h3>Release</h3><p>Help coordinate deployment and make sure the production release goes smoothly.</p></div>
+      <div class="card"><span class="n">06</span><h3>Stay technical</h3><p>Balance project management with hands-on QA and development work.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>AI-Driven Development (AIDD)</h2>
+    <p>The team uses AI coding tools such as Claude and Codex for implementation, which speeds up delivery. People stay in charge of quality: every change still goes through code review, testing, debugging and validation before it ships.</p>
+  </section>
+
+  <div class="band">
+    <h2>Why it matters</h2>
+    <p>This is my current role, and the latest step in my path from Software QA to Full-Stack Developer to Project Manager / Technical Lead. It covers the whole of delivery: planning the work, keeping the team in step, getting real users to confirm it works, and getting it released.</p>
+  </div>
+
+  <footer><span>Expense Management System</span><span>Mark Jason Delima</span></footer>
+</div>
+</body></html>

@@ -10,8 +10,6 @@ import { restorePrefs } from '@/lib/a11y'
 // Every route but Home is its own chunk: the first visit only pays for Home.
 const ProjectsView = lazy(() => import('@/views/ProjectsView'))
 const ServicesView = lazy(() => import('@/views/ServicesView'))
-const ShowcaseView = lazy(() => import('@/views/ShowcaseView'))
-const TestimonialsGrid = lazy(() => import('@/components/TestimonialsGrid'))
 const AboutGrid = lazy(() => import('@/components/AboutGrid'))
 const ContactGrid = lazy(() => import('@/components/ContactGrid'))
 const Privacy = lazy(() => import('@/components/Privacy'))
@@ -66,8 +64,6 @@ createRoot(container).render(
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<ProjectsView />} />
           <Route path="/services" element={<ServicesView />} />
-          <Route path="/showcase" element={<ShowcaseView />} />
-          <Route path="/testimonials" element={<TestimonialsGrid />} />
           <Route path="/about" element={<AboutGrid />} />
           <Route path="/contact" element={<ContactGrid />} />
         </Route>

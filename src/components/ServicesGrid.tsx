@@ -1,20 +1,15 @@
 import type { CSSProperties } from 'react'
-import { MagnetStraight, Timer, Trophy, CheckCircle } from '@/components/slab'
+import { Code, TestTube, RocketLaunch, CheckCircle, UsersThree, Kanban } from '@/components/slab'
 import type { Icon } from '@/components/slab'
 import Autopilot, { TOOLS } from '@/components/Autopilot'
 
 /**
- * ServicesGrid - the Services view on one glass sheet.
+ * ServicesGrid - the Expertise view on one glass sheet.
  *
- * Three bands, top to bottom: your three-step method (on a dark plate so it
- * is the first thing the eye lands on), the five services as cards that carry
- * the marks of what each one is built with, and the live automation demo
- * scaled into whatever height is left. Same object language as Home and
- * Projects: the glass, the bento card, plated marks, orange for the index
- * and the accent.
- *
- * Every string below is a PLACEHOLDER. Replace it, or hand this file to your
- * AI assistant and tell it what to put in each spot.
+ * Three bands, top to bottom: the build / test / ship method (on a dark
+ * plate so it is the first thing the eye lands on), the five things I bring
+ * to a team as cards that carry the marks of what each one uses, and the
+ * delivery pipeline demo scaled into whatever height is left.
  */
 
 /* ---------- The method ---------- */
@@ -30,100 +25,102 @@ type Stage = {
 const STAGES: Stage[] = [
   {
     index: '01',
-    label: 'Step 1',
-    body: 'PLACEHOLDER - one line on what happens in this step.',
-    Icon: MagnetStraight,
-    chips: ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4'],
+    label: 'Build',
+    body: 'Features built from user stories in React, Next.js, Laravel or NestJS. AI helps write the code and every change gets reviewed.',
+    Icon: Code,
+    chips: ['React', 'Laravel', 'NestJS', 'AI-assisted'],
   },
   {
     index: '02',
-    label: 'Step 2',
-    body: 'PLACEHOLDER - one line on what happens in this step.',
-    Icon: Timer,
-    chips: ['Tag 1', 'Tag 2', 'Tag 3'],
+    label: 'Test',
+    body: 'Manual, automation and regression testing on staging, with PR review before anything merges.',
+    Icon: TestTube,
+    chips: ['Manual', 'Automation', 'Regression'],
   },
   {
     index: '03',
-    label: 'Step 3',
-    body: 'PLACEHOLDER - one line on the result the client gets.',
-    Icon: Trophy,
-    chips: ['Tag 1', 'Tag 2', 'Tag 3'],
+    label: 'Ship',
+    body: 'UAT with real users and a production-readiness check, then a Docker-based release.',
+    Icon: RocketLaunch,
+    chips: ['UAT', 'CI/CD', 'Docker'],
   },
 ]
 
-/* ---------- The services ---------- */
+/* ---------- What I do ---------- */
 
-// Example tool marks from /public/icons. Swap for the tools you actually use.
-const GHL = '/icons/gohighlevel.png'
 const REACT = '/icons/ai/react.svg'
-const TAILWIND = '/icons/ai/tailwindcss.svg'
-const VITE = '/icons/ai/vite.svg'
-const CLOUDFLARE = '/icons/ai/cloudflare.svg'
-const N8N = '/icons/ai/n8n.svg'
-const OPENAI = '/icons/openai.svg'
-const GWS = '/icons/googleworkspace.svg'
-const SLACK = '/icons/slack.svg'
-const CLAUDE_CODE = '/icons/claude-code-logo.png'
-const EXPO = '/icons/ai/expo.svg'
-const CHROME = '/icons/ai/googlechrome.svg'
+const LARAVEL = '/icons/ai/laravel.svg'
+const NEST = '/icons/ai/nestjs.svg'
+const DOCKER = '/icons/ai/docker.svg'
+const GIT = '/icons/ai/git.svg'
+const GITHUB = '/icons/ai/github.svg'
 
 type Service = {
   index: string
   title: string
   description: string
   chip: string
+  /** Tool marks; when empty, `Icon` is shown on a plate instead. */
   logos: string[]
+  Icon?: Icon
   bullets: string[]
 }
-
-const BULLETS = ['PLACEHOLDER benefit 1', 'PLACEHOLDER benefit 2', 'PLACEHOLDER benefit 3']
-const SERVICE_DESC = 'PLACEHOLDER - one line on this service.'
 
 const SERVICES: Service[] = [
   {
     index: '01',
-    title: 'Service One',
-    description: SERVICE_DESC,
-    chip: 'PLACEHOLDER',
-    logos: [GHL, REACT, TAILWIND],
-    bullets: BULLETS,
+    title: 'Full-Stack Development',
+    description: 'Web apps from the interface down to the database.',
+    chip: 'React · Laravel · NestJS',
+    logos: [REACT, LARAVEL, NEST],
+    bullets: ['React & Next.js interfaces', 'Laravel & NestJS APIs', 'MySQL & PostgreSQL data'],
   },
   {
     index: '02',
-    title: 'Service Two',
-    description: SERVICE_DESC,
-    chip: 'PLACEHOLDER',
-    logos: [GHL, N8N, OPENAI],
-    bullets: BULLETS,
+    title: 'QA & Testing',
+    description: 'Catching problems before users do.',
+    chip: 'Manual · Automation',
+    logos: [],
+    Icon: TestTube,
+    bullets: ['Manual & automation testing', 'Regression on every release', 'Bug identification & validation'],
   },
   {
     index: '03',
-    title: 'Service Three',
-    description: SERVICE_DESC,
-    chip: 'PLACEHOLDER',
-    logos: [GHL, GWS, SLACK],
-    bullets: BULLETS,
+    title: 'UAT Facilitation',
+    description: 'Getting real users to sign off before release.',
+    chip: 'User Acceptance Testing',
+    logos: [],
+    Icon: UsersThree,
+    bullets: ['UAT process & documentation', 'Tester facilitation & issue tracking', 'Go or no-go for production'],
   },
   {
     index: '04',
-    title: 'Service Four',
-    description: SERVICE_DESC,
-    chip: 'PLACEHOLDER',
-    logos: [REACT, VITE, CLOUDFLARE],
-    bullets: BULLETS,
+    title: 'Deployment & DevOps',
+    description: 'From a merged PR to a running release.',
+    chip: 'Docker · CI/CD',
+    logos: [DOCKER, GIT, GITHUB],
+    bullets: ['CI/CD & staging deployments', 'Database migrations', 'Container rebuilds & troubleshooting'],
   },
   {
     index: '05',
-    title: 'Service Five',
-    description: SERVICE_DESC,
-    chip: 'PLACEHOLDER',
-    logos: [CLAUDE_CODE, EXPO, CHROME],
-    bullets: BULLETS,
+    title: 'Project Coordination',
+    description: 'Keeping a team on track to release.',
+    chip: 'PM · Release planning',
+    logos: [],
+    Icon: Kanban,
+    bullets: ['User story & task assignment', 'PR review & staging follow-up', 'Release & phase planning'],
   },
 ]
 
 /** The tool marks, stacked horizontally on white tiles (same as Projects). */
-function Marks({ logos }: { logos: string[] }) {
+function Marks({ logos, Icon: Glyph }: { logos: string[]; Icon?: Icon }) {
+  if (!logos.length && Glyph) {
+    return (
+      <span className="bento__icon" aria-hidden="true">
+        <Glyph size={20} weight="duotone" />
+      </span>
+    )
+  }
   return (
     <span className="bento__logos" aria-hidden="true">
       {logos.map((src) => (
@@ -141,12 +138,12 @@ export default function ServicesGrid() {
   return (
     <section className="pgrid sgrid" aria-labelledby="services-title">
       <header className="pgrid__head">
-        <span className="pgrid__eyebrow">Services</span>
+        <span className="pgrid__eyebrow">Expertise</span>
         <h1 className="pgrid__title" id="services-title">
-          Your services headline, in one short line.
+          Developer, tester and coordinator.
         </h1>
         <p className="pgrid__lede">
-          PLACEHOLDER - tell me what to put here: one line on what you offer.
+          I work across the whole delivery cycle: building features, testing them, getting them through UAT and releasing them to production.
         </p>
       </header>
 
@@ -155,14 +152,14 @@ export default function ServicesGrid() {
             in order on the right with a signal running them. */}
         <div className="sgrid__method" aria-labelledby="method-title">
           <div className="sgrid__method-copy">
-            <span className="sgrid__method-eyebrow">Your Method</span>
+            <span className="sgrid__method-eyebrow">How I work</span>
             <h2 className="sgrid__method-title" id="method-title">
-              One. Two. Three.
+              Build. Test. Ship.
               <br />
-              <span>Your method, in three steps.</span>
+              <span>The whole cycle, not one stage.</span>
             </h2>
             <p className="sgrid__method-sub">
-              PLACEHOLDER - one sentence on why your method works.
+              I have been the developer, the tester and the coordinator, so I know what each stage needs from the one before it.
             </p>
           </div>
 
@@ -191,15 +188,15 @@ export default function ServicesGrid() {
         {/* Five cards, each carrying the marks of what it is built with. */}
         <div className="sgrid__offers">
           <div className="sgrid__offers-head">
-            <h2 className="sgrid__offers-title">Your services, listed.</h2>
-            <p className="sgrid__offers-sub">PLACEHOLDER - one short nudge.</p>
+            <h2 className="sgrid__offers-title">What I bring to a team.</h2>
+            <p className="sgrid__offers-sub">Hiring, or need help on a project? Get in touch.</p>
           </div>
           <ul className="bento sgrid__services" role="list">
             {SERVICES.map((s) => (
               <li key={s.title} className="bento__card sgrid__service">
                 <span className="bento__head">
                   <span className="sgrid__service-top">
-                    <Marks logos={s.logos} />
+                    <Marks logos={s.logos} Icon={s.Icon} />
                     <span className="sgrid__service-index" aria-hidden="true">{s.index} / 05</span>
                   </span>
                   <span className="bento__title">{s.title}</span>
@@ -224,13 +221,13 @@ export default function ServicesGrid() {
         <div className="sgrid__flow">
           <header className="sgrid__flow-head">
             <div className="sgrid__flow-copy">
-              <span className="sgrid__flow-eyebrow">Live automation</span>
-              <h2 className="sgrid__flow-title">Your automation headline.</h2>
+              <span className="sgrid__flow-eyebrow">Delivery pipeline</span>
+              <h2 className="sgrid__flow-title">From pull request to production.</h2>
               <p className="sgrid__flow-sub">
-                PLACEHOLDER - tell me what to put here: one sentence on what this example automation does for a client.
+                The release flow I work in every day: CI/CD, Docker, staging, QA, UAT and production.
               </p>
             </div>
-            <ul className="sgrid__flow-tools" role="list" aria-label="Tools that power this flow">
+            <ul className="sgrid__flow-tools" role="list" aria-label="Tools in this pipeline">
               {TOOLS.map(({ Icon: ToolIcon, label }) => (
                 <li key={label} className="sgrid__flow-tool">
                   <ToolIcon size={14} weight="duotone" aria-hidden="true" />

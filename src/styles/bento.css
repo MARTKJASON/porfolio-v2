@@ -261,6 +261,7 @@
   transition: transform var(--dur-slow) var(--ease-spring);
 }
 .bento__badge-ring img { width: 66%; height: 66%; object-fit: contain; }
+.bento__badge-ring svg { width: 50%; height: 50%; color: var(--orange); }
 .bento__card:hover .bento__badge-ring { transform: scale(1.06) rotate(-6deg); }
 .bento__badge-tag {
   display: inline-flex;
@@ -385,6 +386,7 @@
 .bento__review-top { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--navy); }
 .bento__review-top img { width: 18px; height: 18px; border-radius: 5px; object-fit: contain; }
 .bento__review-top svg { color: var(--orange); }
+.bento__review-step { font-size: 10.5px; font-weight: 700; color: var(--orange-ink); font-variant-numeric: tabular-nums; }
 .bento__review-role { font-size: 11.5px; line-height: 1.4; color: var(--muted); }
 .bento__review-work { font-size: 11px; font-weight: 600; color: var(--orange-ink); }
 
